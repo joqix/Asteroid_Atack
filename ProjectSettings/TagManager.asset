@@ -7,6 +7,10 @@ TagManager:
   - Cubo
   - Punto
   - Vida
+  - bala
+  - arma
+  - moneda
+  - coazon
   layers:
   - Default
   - TransparentFX

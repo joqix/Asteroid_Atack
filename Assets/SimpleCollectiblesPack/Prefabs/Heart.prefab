@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 183564183286777953}
   m_Layer: 2
   m_Name: Heart
-  m_TagString: Vida
+  m_TagString: coazon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,8 +31,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781561378815422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -0.86, z: -0.69000006}
-  m_LocalScale: {x: 1.6448841, y: 1.6448833, z: 1.6448842}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -209,7 +209,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781561378815422}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25295
@@ -242,5 +242,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d350603ba3eca6441b3e1aa25c67592a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  esfera: {fileID: 0}
+  esfera: {fileID: 1488096175762158, guid: 61954f4a94623b642b25d1e38295a31a, type: 3}
   puntosPorEsqivar: 0

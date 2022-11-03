@@ -7,6 +7,7 @@ public class GenerarCubos : MonoBehaviour
 {
     public GameObject cubo;
     public GameObject vida;
+    public GameObject arma;
     public float tiempo;
     public float repeticion;
 
@@ -34,7 +35,7 @@ public class GenerarCubos : MonoBehaviour
 
     public void GenerarCubo()
     {
-        int aleatorio = Random.Range(1, 4);
+        int aleatorio = Random.Range(1, 7);
         Vector3 position = new Vector3(Random.Range(-10,11), 10, 0);
         GameObject objeto = null;
 
@@ -45,25 +46,30 @@ public class GenerarCubos : MonoBehaviour
                 break;
             case 2:
             case 3:
+            case 4:
+            case 5:
                 objeto = cubo;
                 objeto.GetComponent<ControlCubo>().puntosPorEsqivar = Random.Range(1, 6);
                 break;
+            case 6:
+                objeto = arma;
+                break;
         }
         
-        Instantiate(objeto, position, new Quaternion(0, 0, 90, 0));
+        Instantiate(objeto, position, new Quaternion(0, 0, 0, 0));
     }
 
 
 
-    private void ControlVidas()
+    public void ControlVidas()
     {
-        textoVidas.text = "Vidas : " + GameObject.Find("Esfera").GetComponent<ControlarEsfera>().vidas;
+        textoVidas.text = "Vidas : " + GameObject.Find("Esfera").GetComponent<ControlarEsfera>().getVidas();
         ControlPuntuacion();
     }
 
     private void ControlPuntuacion()
     {
-        textoPuntos.text = "Puntuación: " + puntuacion;
+        textoPuntos.text = "PuntuaciÃ³n: " + puntuacion;
         
 
         if (puntuacion >= siguienteNivel)
@@ -76,7 +82,6 @@ public class GenerarCubos : MonoBehaviour
             }
             CancelInvoke("GenerarCubo");
             InvokeRepeating("GenerarCubo", tiempo, repeticion);
-            Debug.Log("sube");
         }
 
     }

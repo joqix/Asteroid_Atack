@@ -8,13 +8,21 @@ public class ControlarEsfera : MonoBehaviour
 {
     public float velocidad;
     public int vidas;
+    public int balas;
     
     public Text texto;
     public Text textoPuntos;
+    public Text textoBalas;
+    public GameObject bala;
+    private GenerarCubos datosJuego;
     // Start is called before the first frame update
     void Start()
     {
         vidas = 3;
+        balas = 0;
+
+        datosJuego = GameObject.Find("GeneradorCubos").GetComponent<GenerarCubos>();
+        textoBalas.text = "";
     }
 
     // Update is called once per frame
@@ -22,6 +30,7 @@ public class ControlarEsfera : MonoBehaviour
     {
         MoverHorizontal();
         MoverVertical();
+        Disparar();
     }
 
 
@@ -30,11 +39,23 @@ public class ControlarEsfera : MonoBehaviour
         if(collision.gameObject.CompareTag("Cubo"))
         {
             vidas--;
+            
         }
 
-        if (collision.gameObject.CompareTag("Vida"))
+        if (collision.gameObject.CompareTag("coazon"))
         {
+            Debug.Log("sube");
             vidas++;
+            
+            datosJuego.ControlVidas();
+        }
+
+        if (collision.gameObject.CompareTag("arma"))
+        {
+            collision.gameObject.GetComponent<AudioSource>().Play();
+            balas +=3;
+            textoBalas.text = "Balas: " + balas;
+            
         }
 
         ControlVidas();
@@ -43,7 +64,7 @@ public class ControlarEsfera : MonoBehaviour
 
     public void MoverHorizontal()
     {
-        //registramos la pulsación
+        //registramos la pulsaciï¿½n
         float horizontalX = Input.GetAxis("Horizontal");
 
         //movimiento Horizontal
@@ -62,7 +83,7 @@ public class ControlarEsfera : MonoBehaviour
 
     public void MoverVertical()
     {
-        //registramos la pulsación
+        //registramos la pulsaciï¿½n
         float verticalY = Input.GetAxis("Vertical");
 
         //movimiento Horizontal
@@ -79,12 +100,37 @@ public class ControlarEsfera : MonoBehaviour
 
     }
 
+     public void Disparar(){
+        if (Input.GetButtonDown("Jump") && balas > 0){
+            gameObject.GetComponent<AudioSource>().Play(); 
+            Instantiate(bala,new Vector3(gameObject.GetComponent<Transform>().position.x, gameObject.GetComponent<Transform>().position.y +1.5f, gameObject.GetComponent<Transform>().position.z), new Quaternion(0, 0, 0, 0));
+             balas--;
+            textoBalas.text = "Balas: " + balas;
+        }
+        if(balas == 0)
+        {
+            textoBalas.text = "";
+        }
+     }
+
     private void ControlVidas()
     {
         if (vidas < 0)
         {
             SceneManager.LoadScene("Menu");
         }
+    }
+
+    public int getVidas(){
+        return vidas;
+    }
+
+    public void setVidas( int num){
+        vidas = num;
+    }
+
+    public void sumaVidas( int num){
+        vidas += num;
     }
 
 }
