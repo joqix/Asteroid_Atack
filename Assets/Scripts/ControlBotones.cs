@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ControlBotones : MonoBehaviour
 {
-    
+    [Header("Paneles")]
+    [SerializeField] private GameObject panelPrincipal;
+    [SerializeField] private GameObject panelMultiplayer;
     // Start is called before the first frame update
     void Start()
     {
-       
+        ActivarPanel(panelPrincipal);
     }
 
     // Update is called once per frame
@@ -28,6 +30,23 @@ public class ControlBotones : MonoBehaviour
         Application.Quit(); 
     }
 
-   
+    public void OnBotonVolver()
+    {
+        ActivarPanel(panelPrincipal);
+    }
+
+    public void OnBotonMultiplayer()
+    {
+        ActivarPanel(panelMultiplayer);
+    }
+
+    private void ActivarPanel(GameObject panel)
+    {
+        panelPrincipal.SetActive(false);
+        panelMultiplayer.SetActive(false);
+       
+        panel.SetActive(true);
+    }
+
 
 }
