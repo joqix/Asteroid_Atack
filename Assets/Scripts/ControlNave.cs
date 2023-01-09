@@ -1,26 +1,31 @@
-using Photon.Pun;
+﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ControlarEsfera : MonoBehaviour
+public class ControlNave : MonoBehaviourPunCallbacks
 {
     public float velocidad;
     public int vidas;
     public int balas;
-    
+
     public Text texto;
     public Text textoPuntos;
     public Text textoBalas;
     public GameObject bala;
     private GenerarCubos datosJuego;
 
+
     // Start is called before the first frame update
     void Start()
     {
-     
+
+        texto = GameObject.Find("TxtVidas").GetComponent<Text>();
+        textoPuntos = GameObject.Find("TxtPuntos").GetComponent<Text>();
+        textoBalas = GameObject.Find("TxtBalas").GetComponent<Text>();
+
         vidas = 3;
         balas = 0;
 
@@ -31,38 +36,43 @@ public class ControlarEsfera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoverHorizontal();
-        MoverVertical();
-        Disparar();
+        if (photonView.IsMine)
+        {
+            MoverHorizontal();
+            MoverVertical();
+            Disparar();
+        }
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Cubo"))
+        if (photonView.IsMine)
         {
-            vidas--;
-            
-        }
+            if (collision.gameObject.CompareTag("Cubo"))
+            {
+                vidas--;
+            }
 
-        if (collision.gameObject.CompareTag("coazon"))
-        {
-            Debug.Log("sube");
-            vidas++;
-            
-            datosJuego.ControlVidas();
-        }
+            if (collision.gameObject.CompareTag("coazon"))
+            {
+                Debug.Log("sube");
+                vidas++;
 
-        if (collision.gameObject.CompareTag("arma"))
-        {
-            collision.gameObject.GetComponent<AudioSource>().Play();
-            balas +=3;
-            textoBalas.text = "Balas: " + balas;
-            
-        }
+                datosJuego.ControlVidas();
+            }
 
-        ControlVidas();
-        Destroy(collision.gameObject);
+            if (collision.gameObject.CompareTag("arma"))
+            {
+                collision.gameObject.GetComponent<AudioSource>().Play();
+                balas += 3;
+                textoBalas.text = "Balas: " + balas;
+
+            }
+
+            ControlVidas();
+            Destroy(collision.gameObject);
+        }
     }
 
     public void MoverHorizontal()
@@ -103,18 +113,20 @@ public class ControlarEsfera : MonoBehaviour
 
     }
 
-     public void Disparar(){
-        if (Input.GetButtonDown("Jump") && balas > 0){
-            gameObject.GetComponent<AudioSource>().Play(); 
-            Instantiate(bala,new Vector3(gameObject.GetComponent<Transform>().position.x, gameObject.GetComponent<Transform>().position.y +1.5f, gameObject.GetComponent<Transform>().position.z), new Quaternion(0, 0, 0, 0));
-             balas--;
+    public void Disparar()
+    {
+        if (Input.GetButtonDown("Jump") && balas > 0)
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+            Instantiate(bala, new Vector3(gameObject.GetComponent<Transform>().position.x, gameObject.GetComponent<Transform>().position.y + 1.5f, gameObject.GetComponent<Transform>().position.z), new Quaternion(0, 0, 0, 0));
+            balas--;
             textoBalas.text = "Balas: " + balas;
         }
-        if(balas == 0)
+        if (balas == 0)
         {
             textoBalas.text = "";
         }
-     }
+    }
 
     private void ControlVidas()
     {
@@ -124,15 +136,18 @@ public class ControlarEsfera : MonoBehaviour
         }
     }
 
-    public int getVidas(){
+    public int getVidas()
+    {
         return vidas;
     }
 
-    public void setVidas( int num){
+    public void setVidas(int num)
+    {
         vidas = num;
     }
 
-    public void sumaVidas( int num){
+    public void sumaVidas(int num)
+    {
         vidas += num;
     }
 

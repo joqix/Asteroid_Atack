@@ -15,6 +15,7 @@ public class GenerarCubos : MonoBehaviour
     private Text textoPuntos;
 
     private int puntuacion;
+    public bool multiplayer;
 
    private int siguienteNivel = 50;
     // Start is called before the first frame update

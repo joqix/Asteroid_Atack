@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ControlConexion : MonoBehaviourPunCallbacks
@@ -83,6 +84,14 @@ public class ControlConexion : MonoBehaviourPunCallbacks
     {
         txtBarraDeEstado.text = player.NickName + " ha abandonado la sala";
         txtBarraDeEstado.text = PhotonNetwork.CurrentRoom.PlayerCount + "/2";
+    }
+
+    public void PulsarBTNJugar()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            SceneManager.LoadScene("Multiplayer");
+        }
     }
 
 }
