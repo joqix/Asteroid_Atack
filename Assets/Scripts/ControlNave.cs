@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class ControlNave : MonoBehaviourPunCallbacks
     public Text textoBalas;
     public GameObject bala;
     private GenerarCubos datosJuego;
+    private string name;
 
 
     // Start is called before the first frame update
@@ -25,12 +27,14 @@ public class ControlNave : MonoBehaviourPunCallbacks
         texto = GameObject.Find("TxtVidas").GetComponent<Text>();
         textoPuntos = GameObject.Find("TxtPuntos").GetComponent<Text>();
         textoBalas = GameObject.Find("TxtBalas").GetComponent<Text>();
-
+         
         vidas = 3;
         balas = 0;
+        
 
         datosJuego = GameObject.Find("GeneradorCubos").GetComponent<GenerarCubos>();
         textoBalas.text = "";
+        name = PhotonNetwork.LocalPlayer.NickName;
     }
 
     // Update is called once per frame
@@ -118,7 +122,7 @@ public class ControlNave : MonoBehaviourPunCallbacks
         if (Input.GetButtonDown("Jump") && balas > 0)
         {
             gameObject.GetComponent<AudioSource>().Play();
-            Instantiate(bala, new Vector3(gameObject.GetComponent<Transform>().position.x, gameObject.GetComponent<Transform>().position.y + 1.5f, gameObject.GetComponent<Transform>().position.z), new Quaternion(0, 0, 0, 0));
+            PhotonNetwork.Instantiate(bala.name, new Vector3(gameObject.GetComponent<Transform>().position.x, gameObject.GetComponent<Transform>().position.y + 1.5f, gameObject.GetComponent<Transform>().position.z), new Quaternion(0, 0, 0, 0));
             balas--;
             textoBalas.text = "Balas: " + balas;
         }
@@ -130,10 +134,11 @@ public class ControlNave : MonoBehaviourPunCallbacks
 
     private void ControlVidas()
     {
-        if (vidas < 0)
+        if((GameObject.Find("Nave(Clone)").GetComponent<ControlNave>().getVidas() < 0) || (GameObject.Find("Nave_J2(Clone)").GetComponent<ControlNave>().getVidas() < 0))
         {
-            SceneManager.LoadScene("Menu");
+            GameOver();
         }
+        
     }
 
     public int getVidas()
@@ -151,4 +156,18 @@ public class ControlNave : MonoBehaviourPunCallbacks
         vidas += num;
     }
 
+    public string getName()
+    {
+        return name;
+    }
+
+    private void GameOver()
+    {
+        GameObject.Find("PanelGameOver").SetActive(true);
+        GameObject.Find("TextPlayer1Points").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave(Clone)").GetComponent<ControlNave>().getVidas() + " Puntos";
+        GameObject.Find("TextPlayer2Points").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave_J2(Clone)").GetComponent<ControlNave>().getVidas() + " Puntos";
+        GameObject.Find("TextPlayer1Name").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave(Clone)").GetComponent<ControlNave>().getName() ;
+        GameObject.Find("TextPlayer2Name").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave_J2(Clone)").GetComponent<ControlNave>().getName() ;
+
+    }
 }

@@ -8,6 +8,8 @@ public class ControlCubo : MonoBehaviour
     public int puntosPorEsqivar;
     private GameObject controlJuego;
 
+    public bool multiplayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,23 @@ public class ControlCubo : MonoBehaviour
     {
         if (gameObject.GetComponent<Transform>().position.y < -10)
         {
-            controlJuego.GetComponent<GenerarCubos>().SumaPuntos(puntosPorEsqivar);
+            if (!multiplayer)
+            {
+                controlJuego.GetComponent<GenerarCubos>().SumaPuntos(puntosPorEsqivar);
+            }
+            else
+            {
+                controlJuego.GetComponent<GeberarCubosMP>().SumaPuntos(puntosPorEsqivar);
+            }
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
         }
     }
 

@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 id = 1;
             }
-            jugador = PhotonNetwork.Instantiate(prefabJugadores[id].name, new Vector3(0, 0, 0), Quaternion.identity, 0);
+            jugador = PhotonNetwork.Instantiate(prefabJugadores[id].name, new Vector3(0, 0, 0), Quaternion.AngleAxis(-90, Vector3.right), 0);
         }
     }
 
