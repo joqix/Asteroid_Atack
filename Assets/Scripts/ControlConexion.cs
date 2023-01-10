@@ -19,7 +19,7 @@ public class ControlConexion : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -30,8 +30,10 @@ public class ControlConexion : MonoBehaviourPunCallbacks
 
     public void Pulsar_BtnConectar()
     {
+
         if (!string.IsNullOrEmpty(txtNombreJugador.text) || !string.IsNullOrWhiteSpace(txtNombreJugador.text))
         {
+            txtBarraDeEstado.text = "Conectando...";
             PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.NickName = txtNombreJugador.text;
@@ -50,12 +52,17 @@ public class ControlConexion : MonoBehaviourPunCallbacks
     {
         //base.OnConnected();
 
-        txtBarraDeEstado.text = "Conectado a Photon";
+        txtBarraDeEstado.text = "Conectado a Photon. Pulsa Conectar para unirte a la sala.";
+
+        
     }
 
     public override void OnCreatedRoom()
     {
         txtBarraDeEstado.text = "Sala creada";
+
+        GameObject.Find("ButtonConectar").GetComponent<Button>().interactable = true; ;
+        
     }
 
 
@@ -76,19 +83,21 @@ public class ControlConexion : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        
         txtBarraDeEstado.text = newPlayer.NickName + " se ha unido a la sala";
-        txtBarraDeEstado.text = PhotonNetwork.CurrentRoom.PlayerCount+"/2";
+        txtBarraDeEstado.text = "Esperando jugadores: "+PhotonNetwork.CurrentRoom.PlayerCount+"/2";
+
     }
 
     public override void OnPlayerLeftRoom(Player player)
     {
         txtBarraDeEstado.text = player.NickName + " ha abandonado la sala";
-        txtBarraDeEstado.text = PhotonNetwork.CurrentRoom.PlayerCount + "/2";
+        txtBarraDeEstado.text = "Esperando jugadores: "+PhotonNetwork.CurrentRoom.PlayerCount + "/2";
     }
 
     public void PulsarBTNJugar()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 &&PhotonNetwork.IsMasterClient)
         {
             SceneManager.LoadScene("Multiplayer");
         }

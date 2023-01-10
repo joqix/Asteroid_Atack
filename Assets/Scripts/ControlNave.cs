@@ -17,7 +17,6 @@ public class ControlNave : MonoBehaviourPunCallbacks
     public Text textoBalas;
     public GameObject bala;
     private GenerarCubos datosJuego;
-    private string name;
 
 
     // Start is called before the first frame update
@@ -34,7 +33,6 @@ public class ControlNave : MonoBehaviourPunCallbacks
 
         datosJuego = GameObject.Find("GeneradorCubos").GetComponent<GenerarCubos>();
         textoBalas.text = "";
-        name = PhotonNetwork.LocalPlayer.NickName;
     }
 
     // Update is called once per frame
@@ -134,7 +132,7 @@ public class ControlNave : MonoBehaviourPunCallbacks
 
     private void ControlVidas()
     {
-        if((GameObject.Find("Nave(Clone)").GetComponent<ControlNave>().getVidas() < 0) || (GameObject.Find("Nave_J2(Clone)").GetComponent<ControlNave>().getVidas() < 0))
+        if(vidas<0)
         {
             GameOver();
         }
@@ -163,11 +161,7 @@ public class ControlNave : MonoBehaviourPunCallbacks
 
     private void GameOver()
     {
-        GameObject.Find("PanelGameOver").SetActive(true);
-        GameObject.Find("TextPlayer1Points").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave(Clone)").GetComponent<ControlNave>().getVidas() + " Puntos";
-        GameObject.Find("TextPlayer2Points").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave_J2(Clone)").GetComponent<ControlNave>().getVidas() + " Puntos";
-        GameObject.Find("TextPlayer1Name").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave(Clone)").GetComponent<ControlNave>().getName() ;
-        GameObject.Find("TextPlayer2Name").GetComponent<TextMeshProUGUI>().text = GameObject.Find("Nave_J2(Clone)").GetComponent<ControlNave>().getName() ;
+        SceneManager.LoadScene("GameOver");
 
     }
 }

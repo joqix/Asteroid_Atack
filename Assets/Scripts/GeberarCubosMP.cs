@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GeberarCubosMP : MonoBehaviourPunCallbacks
@@ -107,6 +108,11 @@ public class GeberarCubosMP : MonoBehaviourPunCallbacks
     public void SumaPuntos(int puntosASumar)
     {
         puntuacion += puntosASumar;
+    }
+
+    public void OnButtonVolver()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
 }
