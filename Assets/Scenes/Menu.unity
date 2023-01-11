@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 9f69d571a9cb54943b5a80ccd6b19e96, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e415922463bc8a74e8b415891d5af2b9, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19588247, g: 0.098007776, b: 0.120039396, a: 1}
+  m_IndirectSpecularColor: {r: 0.073482014, g: 0.04705587, b: 0.083764054, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &41501856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -484,9 +484,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Desarrollo:\nJoaquin Alonso Perianez (Joqix)\n\n Assets de terceos (Unity
     Asset Store):\nSimple Collectibles Pack - Dillon Wallace\nSpaceSkies Free - PULSAR
-    BYTES\nAsteroids low-poly pack - VK GameDev\nBlocky Space Fighter - Arvis Magone\nBlast
-    Off! An 8-Bit Action Music Pack - \r\nSteve Base Music\nFree Laser Weapons -
-    Daniel SoundsGood"
+    BYTES\nAsteroids low-poly pack - VK GameDev\nBlocky Space Fighter - Arvis Magone\nLOWPOLY
+    - Spaceship - IV GAMES\nBlast Off! An 8-Bit Action Music Pack - \r\nSteve Base
+    Music\nFree Laser Weapons - Daniel SoundsGood"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1860,7 +1860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1291582548
 RectTransform:
   m_ObjectHideFlags: 0
