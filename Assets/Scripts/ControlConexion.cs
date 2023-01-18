@@ -19,7 +19,10 @@ public class ControlConexion : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        
+        txtBarraDeEstado.text = "Conectando...";
+        PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.AutomaticallySyncScene = true;
+        btnJugar.interactable = false;
     }
 
     // Update is called once per frame
@@ -33,9 +36,7 @@ public class ControlConexion : MonoBehaviourPunCallbacks
 
         if (!string.IsNullOrEmpty(txtNombreJugador.text) || !string.IsNullOrWhiteSpace(txtNombreJugador.text))
         {
-            txtBarraDeEstado.text = "Conectando...";
-            PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.AutomaticallySyncScene = true;
+            
             PhotonNetwork.NickName = txtNombreJugador.text;
             RoomOptions opcionesSala = new RoomOptions();
             opcionesSala.MaxPlayers = 2;
@@ -43,7 +44,7 @@ public class ControlConexion : MonoBehaviourPunCallbacks
         }
         else
         {
-            txtBarraDeEstado.text = "Indica un nombre de usuario para conectar";
+            txtBarraDeEstado.text = "Indica un nombre de usuario para conectar a la sala";
         }
 
     }
@@ -60,8 +61,7 @@ public class ControlConexion : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         txtBarraDeEstado.text = "Sala creada";
-
-        GameObject.Find("ButtonConectar").GetComponent<Button>().interactable = true; ;
+        btnJugar.interactable = true;
         
     }
 

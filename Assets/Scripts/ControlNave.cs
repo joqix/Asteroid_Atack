@@ -134,7 +134,8 @@ public class ControlNave : MonoBehaviourPunCallbacks
     {
         if(vidas<0)
         {
-            GameOver();
+            
+            photonView.RPC("GameOver", RpcTarget.All);
         }
         
     }
@@ -158,10 +159,11 @@ public class ControlNave : MonoBehaviourPunCallbacks
     {
         return name;
     }
-
+    [PunRPC]
     private void GameOver()
     {
         SceneManager.LoadScene("GameOver");
+        //PhotonNetwork.LoadLevel("GameOver");
 
     }
 }
